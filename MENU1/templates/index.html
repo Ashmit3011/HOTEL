@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Table Order</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Smart Table Ordering System</h1>
+            <input type="text" id="tableNumber" placeholder="Enter Table Number" />
+            <button onclick="saveTableNumber()">Start</button>
+        </header>
+
+        <section id="menuSection">
+            <h2>Menu</h2>
+            <div id="menu"></div>
+        </section>
+
+        <section id="cartSection">
+            <h2>Cart</h2>
+            <div id="cart"></div>
+            <div id="total"></div>
+            <button onclick="placeOrder()">Place Order</button>
+        </section>
+
+        <section id="ordersSection">
+            <h2>Your Orders</h2>
+            <div id="orderHistory"></div>
+        </section>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

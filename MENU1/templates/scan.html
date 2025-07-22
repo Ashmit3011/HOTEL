@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scan QR Code</title>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 1rem;
+            text-align: center;
+        }
+        #reader {
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+        }
+        h2 {
+            margin-bottom: 1rem;
+        }
+        #scan-result {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: green;
+        }
+        a.back {
+            display: inline-block;
+            margin-top: 1rem;
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h2>📷 Scan QR Code</h2>
+    <p>Allow camera access when prompted</p>
+    <div id="reader"></div>
+    <p id="scan-result"></p>
+    <a href="/" class="back">⬅️ Back to Home</a>
+
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            document.getElementById('scan-result').innerText = `Scanned: ${decodedText}`;
+            if (decodedText.startsWith("http://") || decodedText.startsWith("https://")) {
+                window.location.href = decodedText;
+            } else {
+                alert("❌ Invalid QR Code content.");
+            }
+        }
+
+        function onScanFailure(error) {
+            // silently ignore scan errors
+        }
+
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 30, qrbox: 250 });
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    </script>
+</body>
+</html>

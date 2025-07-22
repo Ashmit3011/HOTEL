@@ -1,0 +1,19 @@
+{
+  "Starters": [
+    { "name": "Veg Spring Rolls", "price": 120 },
+    { "name": "Paneer Tikka", "price": 160 }
+  ],
+  "Main Course": [
+    { "name": "Veg Biryani", "price": 180 },
+    { "name": "Butter Naan", "price": 40 },
+    { "name": "Paneer Butter Masala", "price": 200 }
+  ],
+  "Desserts": [
+    { "name": "Gulab Jamun", "price": 60 },
+    { "name": "Ice Cream", "price": 80 }
+  ],
+  "Beverages": [
+    { "name": "Lemon Soda", "price": 50 },
+    { "name": "Cold Coffee", "price": 90 }
+  ]
+}

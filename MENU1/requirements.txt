@@ -1,0 +1,9 @@
+flask
+gunicorn
+jinja2
+itsdangerous
+click
+werkzeug
+html5lib
+qrcode
+pillow

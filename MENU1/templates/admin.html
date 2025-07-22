@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel - Smart Orders</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 1.5rem;
+            background: #111;
+            color: white;
+        }
+        h1 {
+            margin-bottom: 1rem;
+        }
+        .order {
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #1c1c1c;
+        }
+        .status-bar {
+            height: 8px;
+            width: 100%;
+            background: #333;
+            border-radius: 4px;
+            margin-top: 8px;
+            position: relative;
+        }
+        .status-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        .pending { background-color: #ffc107; width: 33%; }
+        .preparing { background-color: #17a2b8; width: 66%; }
+        .completed { background-color: #28a745; width: 100%; }
+        .cancelled { background-color: #dc3545; width: 100%; }
+
+        .buttons {
+            margin-top: 0.8rem;
+        }
+        .buttons form {
+            display: inline;
+            margin-right: 0.5rem;
+        }
+
+        button {
+            padding: 0.3rem 0.7rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .pending-btn { background: #ffc107; color: #000; }
+        .preparing-btn { background: #17a2b8; color: #fff; }
+        .completed-btn { background: #28a745; color: #fff; }
+        .cancelled-btn { background: #dc3545; color: #fff; }
+        .delete-btn { background: #555; color: #fff; }
+    </style>
+</head>
+<body>
+    <h1>🛠️ Admin Panel - Order Management</h1>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div class="order">
+                <h3>📍 Table {{ order.table }} — {{ order.status }} — 🕒 {{ order.timestamp }}</h3>
+
+                <ul>
+                    {% for name, item in order.items.items() %}
+                        <li>{{ name }} x {{ item.quantity }} = ₹{{ item.price * item.quantity }}</li>
+                    {% endfor %}
+                </ul>
+
+                <div class="status-bar">
+                    <div class="status-fill {{ order.status|lower }}"></div>
+                </div>
+
+                <div class="buttons">
+                    {% if order.status == "Pending" %}
+                        <form action="/update_status" method="POST">
+                            <input type="hidden" name="timestamp" value="{{ order.timestamp }}">
+                            <input type="hidden" name="status" value="Preparing">
+                            <button class="preparing-btn">👨‍🍳 Mark Preparing</button>
+                        </form>
+                    {% elif order.status == "Preparing" %}
+                        <form action="/update_status" method="POST">
+                            <input type="hidden" name="timestamp" value="{{ order.timestamp }}">
+                            <input type="hidden" name="status" value="Completed">
+                            <button class="completed-btn">✅ Mark Completed</button>
+                        </form>
+                    {% endif %}
+
+                    {% if order.status not in ["Cancelled", "Completed"] %}
+                        <form action="/update_status" method="POST">
+                            <input type="hidden" name="timestamp" value="{{ order.timestamp }}">
+                            <input type="hidden" name="status" value="Cancelled">
+                            <button class="cancelled-btn">❌ Cancel</button>
+                        </form>
+                    {% endif %}
+
+                    {% if order.status == "Completed" %}
+                        <form action="/delete_order" method="POST">
+                            <input type="hidden" name="timestamp" value="{{ order.timestamp }}">
+                            <button class="delete-btn">🗑️ Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>📭 No orders found.</p>
+    {% endif %}
+
+    <script>
+        // Optional toast and sound on status updates
+        const urlParams = new URLSearchParams(window.location.search);
+        const toast = urlParams.get("toast");
+        const status = urlParams.get("status");
+
+        if (toast && status === "Preparing") {
+            const audio = new Audio("/static/preparing.mp3");
+            audio.play();
+        }
+
+        if (toast) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'info',
+                title: decodeURIComponent(toast),
+                showConfirmButton: false,
+                timer: 3000,
+                background: '#333',
+                color: '#fff'
+            });
+        }
+    </script>
+</body>
+</html>

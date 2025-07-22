@@ -1,0 +1,203 @@
+/* Reset & Basics */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fefefe;
+    color: #333;
+    max-width: 480px;
+    margin: auto;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    color: #4caf50;
+}
+
+/* Menu Cards */
+.menu-category {
+    margin: 1rem 0;
+}
+
+.menu-item {
+    background: #ffffff;
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.menu-item:hover {
+    transform: scale(1.02);
+}
+
+.menu-item-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.menu-item-price {
+    font-weight: 500;
+    color: #888;
+}
+
+.add-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #43a047;
+}
+
+/* Cart */
+.cart {
+    background-color: #fff8e1;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+}
+
+.cart-buttons button {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    margin-left: 6px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cart-buttons button:hover {
+    background-color: #e64a19;
+}
+
+.place-order {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #009688;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.place-order:hover {
+    background-color: #00796b;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1rem;
+    right: 1rem;
+    background-color: #333;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    text-align: center;
+    animation: fadeInUp 0.5s ease, fadeOut 0.5s 3s ease;
+    z-index: 9999;
+    font-size: 0.95rem;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+/* Status Bars */
+.status-bar {
+    height: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    background: linear-gradient(to right, #ccc 100%, #ccc 100%);
+}
+
+.progress-pending {
+    background: linear-gradient(to right, orange 33%, lightgray 33%);
+}
+
+.progress-preparing {
+    background: linear-gradient(to right, #03a9f4 66%, lightgray 66%);
+}
+
+.progress-completed {
+    background: linear-gradient(to right, #4caf50 100%, #4caf50 100%);
+}
+
+.cancel-button {
+    background-color: #d32f2f;
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 6px;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #c62828;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    body {
+        padding: 0.5rem;
+    }
+    .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu-item-price {
+        margin-top: 4px;
+    }
+
+    .add-button {
+        margin-top: 8px;
+        align-self: flex-end;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
